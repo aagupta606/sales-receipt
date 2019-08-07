@@ -83,6 +83,7 @@ The following parameters are stored in Product Value Object by ProductBuilder
 > basePrice: BigDecimal  
 
 The evaluation of product Category [FOOD|MEDICINE|BOOK|OTHER] is matched on name if it contains as follows:
+
 Product       | Category
 ------------- | -------------
 chocolate  	  | FOOD
@@ -92,6 +93,7 @@ others        | OTHER
 
 
 The evaluation of product Origin Type is  [IMPORTED|DOMESTIC] is matched on name if it contains as follows:
+
 Product       | Origin
 ------------- | -------------
 imported  	  | IMPORTED

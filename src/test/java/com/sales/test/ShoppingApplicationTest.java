@@ -54,7 +54,7 @@ public class ShoppingApplicationTest {
 		exception.expect(InvalidAmountException.class);
 		exception.expectMessage("Price is less than zero");
 		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFiles(
+		app.processInputFileDirectory(
 				ShoppingApplicationTest.class.getClassLoader().getResource("invalidamount_testinput.txt").getFile());
 	}
 
@@ -64,7 +64,7 @@ public class ShoppingApplicationTest {
 		exception.expect(InvalidInputException.class);
 		exception.expectMessage("Provided input is not valid");
 		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFiles("invalidinput_testinput.txt");
+		app.processInputFileDirectory("invalidinput_testinput.txt");
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class ShoppingApplicationTest {
 		exception.expect(InvalidQuantityException.class);
 		exception.expectMessage("Quantity is less than zero");
 		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFiles("invalidquantity_testinput.txt");
+		app.processInputFileDirectory("invalidquantity_testinput.txt");
 	}
 
 }

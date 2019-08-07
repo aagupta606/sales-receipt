@@ -52,6 +52,7 @@ public class ShoppingApplication {
 	 * @return This returns File Path.
 	 */
 	public String getFilePathFromProperties() {
+		logger.debug("inside ShoppingApplication getFilePathFromProperties method");
 		String filePath = "";
 		try (InputStream input = ShoppingApplication.class.getClassLoader()
 				.getResourceAsStream("application.properties")) {
@@ -79,6 +80,7 @@ public class ShoppingApplication {
 	 *             If the <code>inputFileDirectory</code> is not valid
 	 */
 	public void processInputFileDirectory(String inputFileDirectory) throws InvalidInputException {
+		logger.debug("inside ShoppingApplication processInputFileDirectory method");
 		File fileLocation = new File(inputFileDirectory);
 		if (fileLocation.exists()) {
 			for (final File receiptFile : fileLocation.listFiles()) {
@@ -108,9 +110,9 @@ public class ShoppingApplication {
 	 */
 	public void processReceiptsForTax(File receiptFile)
 			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
+		logger.debug("inside ShoppingApplication processReceipts method");
 		if (receiptFile != null) {
-			logger.debug(
-					"inside ShoppingApplication processReceipts method,inputFile: " + receiptFile.getAbsolutePath());
+
 			try (BufferedReader reader = new BufferedReader(new FileReader(receiptFile));) {
 				String itemLine;
 				Product product;

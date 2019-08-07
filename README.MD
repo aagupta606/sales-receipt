@@ -69,7 +69,7 @@ ShoppingApplication is main execution class
  
 6. 2 book at 12.49 will mean that **2 books are marked for sale at 12.49 each**  
 
-### Processing Logic
+### Processing Steps
 
 > 1 book at 12.49  
 

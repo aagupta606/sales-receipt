@@ -1,4 +1,4 @@
-package com.sales.main;
+package com.sales.app;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,18 +16,42 @@ import com.sales.utils.ProductBuilder;
 import com.sales.vo.Product;
 import com.sales.vo.ShoppingCart;
 
+/**
+ * The ShoppingApplication class is main class which is used to execute the
+ * application. This class is responsible for getting the input file location,
+ * iterating through each file and generating receipt
+ * 
+ * @author Abhishek
+ * @version 1.0
+ * @since 2019-Aug-04
+ */
 public class ShoppingApplication {
 	final static Logger logger = Logger.getLogger(ShoppingApplication.class);
 
 	public static void main(String[] args) throws InvalidInputException {
 		logger.debug("inside ShoppingApplication main");
 		ShoppingApplication app = new ShoppingApplication();
-		String filePath = app.getPropertiesPath();
-		app.processInputFileDirectory(filePath);
+		String filePath = app.getFilePathFromProperties();
+		try {
+			app.processInputFileDirectory(filePath);
+		} catch (InvalidAmountException iae) {
+			logger.error("ShoppingApplication: Amount is invalid ", iae);
+		} catch (InvalidQuantityException iqe) {
+			logger.error("ShoppingApplication: Quantity is invalid ", iqe);
+		} catch (InvalidInputException iie) {
+			logger.error("ShoppingApplication: Receipt format is invalid ", iie);
+		}
 		logger.debug("exiting ShoppingApplication main");
 	}
 
-	public String getPropertiesPath() {
+	/**
+	 * This method is used to find the input file location based on the
+	 * application.properties file, we will use this location to iterate all the
+	 * files available in that location
+	 * 
+	 * @return This returns File Path.
+	 */
+	public String getFilePathFromProperties() {
 		String filePath = "";
 		try (InputStream input = ShoppingApplication.class.getClassLoader()
 				.getResourceAsStream("application.properties")) {
@@ -42,21 +66,24 @@ public class ShoppingApplication {
 		return filePath;
 	}
 
+	/**
+	 * This method is used to process the files, the inputFileDirectory will contain
+	 * all the files and for each file we wll invoke
+	 * <code> processReceiptsForTax </code>
+	 *
+	 * 
+	 * @param inputFileDirectory
+	 *            This parameter denotes the directory where input reciept file are
+	 *            kept.
+	 * @throws InvalidInputException
+	 *             If the <code>inputFileDirectory</code> is not valid
+	 */
 	public void processInputFileDirectory(String inputFileDirectory) throws InvalidInputException {
-		System.out.println("ABBB::"+inputFileDirectory);
 		File fileLocation = new File(inputFileDirectory);
 		if (fileLocation.exists()) {
 			for (final File receiptFile : fileLocation.listFiles()) {
 				if (receiptFile.isFile()) {
-					try {
-						processReceiptsForTax(receiptFile);
-					} catch (InvalidAmountException iae) {
-						logger.error("ShoppingApplication: Amount is invalid ", iae);
-					} catch (InvalidQuantityException iqe) {
-						logger.error("ShoppingApplication: Quantity is invalid ", iqe);
-					} catch (InvalidInputException iie) {
-						logger.error("ShoppingApplication: Receipt format is invalid ", iie);
-					}
+					processReceiptsForTax(receiptFile);
 				}
 			}
 		} else {
@@ -65,6 +92,20 @@ public class ShoppingApplication {
 		}
 	}
 
+	/**
+	 * This method takes individual files and processes line by line, building
+	 * product by calling <code>builder.buildProduct</code>
+	 * <code> processReceiptsForTax </code>
+	 * 
+	 * @param receiptFile
+	 *            This parameter is the single input file.
+	 * @throws InvalidQuantityException
+	 *             If the <code>quantity</code> is less than zero
+	 * @throws InvalidAmountException
+	 *             If the <code>basePrice</code> is less than zero
+	 * @throws InvalidInputException
+	 *             If the <code>receiptFile</code> is not valid
+	 */
 	public void processReceiptsForTax(File receiptFile)
 			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
 		if (receiptFile != null) {

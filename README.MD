@@ -49,7 +49,7 @@ Write an application that prints out the receipt details for these inputs:
 ***
 The System assumes that once the items are purchased, the generated receipt in text file is provided for processing and formatting
 ShoppingApplication is main execution class
-*Note*: The text file must be placed in the C:\Users\Public\inputs folder. Sample files from assignment PDF are kept under src/main/resources
+*Note*: The text file must be placed in the location specified by application.properties file (property files.path). For local setup we used C:\Users\Public\inputs folder. But can be configured on convenience. Sample files from assignment PDF are kept under src/main/resources which can be moved there.
  
  
 ### Assumptions
@@ -58,15 +58,16 @@ ShoppingApplication is main execution class
       1 book at 12.49
       1 imported box of chocolates at 10.00
     </pre>
-    This is in form of "<quantity> <product> at <price>"
+    This is in form of [quantity] [product] at [price]
 2. Product Quantity is integer and negative value will throw Invalid Quantity Exception 
 3. Price is a decimal value and negative value will throw Invalid Amount Exception
-4. Imported items will have the word 'import' in them.
+4. Imported items will have the word 'imported' in them.
 5. The input is case sensitive and will be in lower case, In the off case that the input is upper case due to the input application sending that way, then we will process the product but it will be as below:
- BOX OF IMPORTED CHOCOLATES will be considered as OTHER and NOT FOOD
+ BOX OF IMPORTED CHOCOLATES will be considered as OTHER and NOT FOOD.
+ 
  BOX OF IMPORTED CHOCOLATES will be considered as DOMESTIC and not IMPORTED
  
-6. 2 book at 12.49 will mean that *2 books are marked for sale at 12.49 each*  
+6. 2 book at 12.49 will mean that **2 books are marked for sale at 12.49 each**  
 
 ### Processing Logic
 
@@ -74,8 +75,7 @@ ShoppingApplication is main execution class
 
 For each of the input text files present in given folder, the receipt generation is invoked.
 For a input file, each line is read and matched with regex, the regex returns Quantity, Product and its Price.
-If any of the input is not consistent with expected format, the application will skip this input file and throw relevant exception and log it. It will
- continue with processing of the rest of the input files
+If any of the input is not consistent with expected format, the application will skip this input file and throw relevant exception and log it. It will continue with processing of the rest of the input files
 
 The following parameters are stored in Product Value Object by ProductBuilder
 > name: string  
@@ -83,14 +83,14 @@ The following parameters are stored in Product Value Object by ProductBuilder
 > basePrice: decimal  
 
 The evaluation of product Category [FOOD|MEDICINE|BOOK|OTHER] is matched on name if it contains as follows:
-chocolate: FOOD
-pill: MEDICINE
-book: BOOK
-other cases: OTHER
+> chocolate: FOOD
+> pill: MEDICINE
+> book: BOOK
+> other cases: OTHER
 
 The evaluation of product Origin Type is  [IMPORTED|DOMESTIC] is matched on name if it contains as follows:
-imported: IMPORTED
-other cases: DOMESTIC
+> imported: IMPORTED
+> other cases: DOMESTIC
 
 
 The Product will have Net Price and Sales tax individually calculated based on its base price, the Category and Imported Type
@@ -101,30 +101,3 @@ Alternate Design ideas
 #Could have used different product subclass e.g. FoodProduct, but have only tax rate difference => not meaningful
 
 Effort Tracker for assignment(man days): 3 days
-
-If I had more time, I could have deisgned the application that it will return output in format as given in 3rd output example.
-
-
-testPrintReceiptDetailsInputCase3 will fail because the outputs are not matching.
-1 imported bottle of perfume: 32.19
-1 bottle of perfume: 20.89
-1 packet of headache pills: 9.75
-1 imported box of chocolates: 11.85
-Sales Taxes: 6.70
-Total: 74.68
-
-1 imported bottle of perfume: 32.19
-1 bottle of perfume: 20.89
-1 packet of headache pills: 9.75
-1 box of imported chocolates: 11.85
-Sales Taxes: 6.70
-Total: 74.68
-
-
-jenkins
-docstring
-junit
-class diagram
-
-build
-Release document# basic-sales

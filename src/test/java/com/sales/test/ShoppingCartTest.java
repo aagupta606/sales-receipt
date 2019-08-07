@@ -13,6 +13,13 @@ import com.sales.utils.ProductBuilder;
 import com.sales.vo.Product;
 import com.sales.vo.ShoppingCart;
 
+/**
+ * This is a test class to unit test the ShoppingCart functionality
+ *
+ * @see com.sales.vo.ShoppingCart
+ * @author Abhishek
+ * @since 2019-Aug-07
+ */
 public class ShoppingCartTest {
 
 	@Test
@@ -102,14 +109,15 @@ public class ShoppingCartTest {
 		cart.addToCart(product);
 		assertEquals(expectedValue, cart.getTotalPrice());
 	}
-	
+
 	@Test
-	public void testToStringWhenCartIsEmpty() throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
+	public void testToStringWhenCartIsEmpty()
+			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
 		String expectedValue = "";
 		ShoppingCart cart = new ShoppingCart();
 		assertEquals(expectedValue, cart.toString());
 	}
-	
+
 	@Test
 	public void testToString() throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
 		String expectedValue = "1 imported box of chocolates: 10.50\n1 imported bottle of perfume: 54.65";
@@ -121,7 +129,7 @@ public class ShoppingCartTest {
 		cart.addToCart(product);
 		assertEquals(expectedValue, cart.toString());
 	}
-	
+
 	@Test
 	public void testAddToCartNull() throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
 		int expectedValue = 1;
@@ -132,5 +140,5 @@ public class ShoppingCartTest {
 		cart.addToCart(null);
 		assertEquals(expectedValue, cart.getProductsInCartSize());
 	}
-	
+
 }

@@ -13,6 +13,16 @@ import com.sales.vo.Category;
 import com.sales.vo.OriginType;
 import com.sales.vo.Product;
 
+/**
+ * The ProductBuilder class is responsible for forming the product object, eaxh
+ * line contains the product data in file and the regex will retrieve quantity,
+ * name, price from input file. Also, based on the name of product, the Origin
+ * and Category is determined.
+ * 
+ * @author Abhishek
+ * @version 1.0
+ * @since 2019-Aug-04
+ */
 public class ProductBuilder {
 	private static final String INPUT_REGEX = "^(-?\\d+) ([\\w\\s]*) at (-?\\d+.\\d{2})";
 
@@ -25,7 +35,13 @@ public class ProductBuilder {
 	 * 
 	 * @param productString
 	 *            This parameter is passed in form of '1 book at 12.49'
-	 * @return Product This returns well formed Product based on input.
+	 * @return This returns well formed Product based on input.
+	 * @throws InvalidQuantityException
+	 *             If the <code>quantity</code> is less than zero
+	 * @throws InvalidAmountException
+	 *             If the <code>basePrice</code> is less than zero
+	 * @throws InvalidInputException
+	 *             If the <code>receiptFile</code> is not valid
 	 */
 	public Product buildProduct(String productString)
 			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
@@ -73,7 +89,7 @@ public class ProductBuilder {
 	 * 
 	 * @param name
 	 *            This parameter is passed in form of 'imported book'
-	 * @return OriginType This returns OriginType [IMPORTED|DOMESTIC].
+	 * @return This returns OriginType [IMPORTED|DOMESTIC].
 	 */
 	public OriginType findOriginType(String name) {
 		logger.debug("inside ProductBuilder findOriginType method");
@@ -95,7 +111,7 @@ public class ProductBuilder {
 	 * 
 	 * @param name
 	 *            This parameter is passed in form of 'imported book'
-	 * @return OriginType This returns OriginType [FOOD|MEDICINE|BOOK|OTHER].
+	 * @return This returns OriginType [FOOD|MEDICINE|BOOK|OTHER].
 	 */
 	public Category findCategory(String name) {
 		logger.debug("inside ProductBuilder findCategory method");

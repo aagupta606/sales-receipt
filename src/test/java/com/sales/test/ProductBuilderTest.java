@@ -14,6 +14,13 @@ import com.sales.utils.ProductBuilder;
 import com.sales.vo.Category;
 import com.sales.vo.OriginType;
 
+/**
+ * This is a test class to unit test the ProductBuilder functionality
+ *
+ * @see com.sales.utils.ProductBuilder
+ * @author Abhishek
+ * @since 2019-Aug-07
+ */
 public class ProductBuilderTest {
 
 	@Rule

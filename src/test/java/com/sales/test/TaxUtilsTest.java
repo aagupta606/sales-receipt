@@ -8,6 +8,13 @@ import org.junit.Test;
 
 import com.sales.utils.TaxUtils;
 
+/**
+ * This is a test class to unit test the TaxUtils functionality
+ *
+ * @see com.sales.utils.TaxUtils
+ * @author Abhishek
+ * @since 2019-Aug-07
+ */
 public class TaxUtilsTest {
 
 	@Test
@@ -25,7 +32,8 @@ public class TaxUtilsTest {
 	@Test
 	public void testCalculateApplicableTax() {
 		BigDecimal expectedValue = new BigDecimal("1.90");
-		assertEquals(expectedValue, TaxUtils.calculateApplicableTax(new BigDecimal("18.99"), new BigDecimal("10"), new BigDecimal("0")));
+		assertEquals(expectedValue,
+				TaxUtils.calculateApplicableTax(new BigDecimal("18.99"), new BigDecimal("10"), new BigDecimal("0")));
 	}
 
 }

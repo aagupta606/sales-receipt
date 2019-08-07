@@ -1,18 +1,25 @@
 package com.sales.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
-import java.math.BigDecimal;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.sales.app.ShoppingApplication;
 import com.sales.exception.InvalidAmountException;
 import com.sales.exception.InvalidInputException;
 import com.sales.exception.InvalidQuantityException;
-import com.sales.main.ShoppingApplication;
-import static org.junit.Assert.assertEquals;
 
+/**
+ * This is a test class to unit test the ShoppingApplication functionality
+ *
+ * @see com.sales.app.ShoppingApplication
+ * @author Abhishek
+ * @since 2019-Aug-07
+ */
 public class ShoppingApplicationTest {
 
 	@Rule
@@ -42,38 +49,10 @@ public class ShoppingApplicationTest {
 	}
 
 	@Test
-	public void testGetPropertiesPath() {
+	public void testGetFilePathFromProperties() {
 		String expectedValue = "C:\\Users\\Public\\inputs";
 		ShoppingApplication app = new ShoppingApplication();
-		assertEquals(expectedValue, app.getPropertiesPath());
-	}
-
-	@Test
-	public void shouldThrowInvalidAmountException()
-			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
-		exception.expect(InvalidAmountException.class);
-		exception.expectMessage("Price is less than zero");
-		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFileDirectory(
-				ShoppingApplicationTest.class.getClassLoader().getResource("invalidamount_testinput.txt").getFile());
-	}
-
-	@Test
-	public void shouldThrowInvalidInputException()
-			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
-		exception.expect(InvalidInputException.class);
-		exception.expectMessage("Provided input is not valid");
-		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFileDirectory("invalidinput_testinput.txt");
-	}
-
-	@Test
-	public void shouldThrowInvalidQuantityException()
-			throws InvalidQuantityException, InvalidAmountException, InvalidInputException {
-		exception.expect(InvalidQuantityException.class);
-		exception.expectMessage("Quantity is less than zero");
-		ShoppingApplication app = new ShoppingApplication();
-		app.processInputFileDirectory("invalidquantity_testinput.txt");
+		assertEquals(expectedValue, app.getFilePathFromProperties());
 	}
 
 }

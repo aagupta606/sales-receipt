@@ -78,20 +78,24 @@ For a input file, each line is read and matched with regex, the regex returns Qu
 If any of the input is not consistent with expected format, the application will skip this input file and throw relevant exception and log it. It will continue with processing of the rest of the input files
 
 The following parameters are stored in Product Value Object by ProductBuilder
-> name: string  
-> quantity: integer  
-> basePrice: decimal  
+> name: String  
+> quantity: int  
+> basePrice: BigDecimal  
 
 The evaluation of product Category [FOOD|MEDICINE|BOOK|OTHER] is matched on name if it contains as follows:
-> chocolate: FOOD
-> pill: MEDICINE
-> book: BOOK
-> other cases: OTHER
+Product       | Category
+------------- | -------------
+chocolate  	  | FOOD
+pill          | MEDICINE
+book          | FOOD
+others        | OTHER
+
 
 The evaluation of product Origin Type is  [IMPORTED|DOMESTIC] is matched on name if it contains as follows:
-> imported: IMPORTED
-> other cases: DOMESTIC
-
+Product       | Origin
+------------- | -------------
+imported  	  | IMPORTED
+others        | DOMESTIC
 
 The Product will have Net Price and Sales tax individually calculated based on its base price, the Category and Imported Type
 All the items that have been added to Cart will be iterated and will format the receipt output
